@@ -1,0 +1,83 @@
+import React from 'react';
+import { Link } from "react-router-dom";
+import ApiCall from '../helpers/Api';
+
+class EmployeeView extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            employee_list: [],
+            page: null,
+            page_size: null,
+            total_pages: null,
+            total_records: null,
+            total_records_per_page: null
+        }
+    }
+
+    componentDidMount() {
+        ApiCall('/employee', 'GET').then(res => {
+            this.setState({
+                employee_list: res['employees'],
+                page: res['page'],
+                page_size: res['page_size'],
+                total_pages: res['total_pages'],
+                total_records: res['total_records'],
+                total_records_per_page: res['total_records_per_page']
+            });
+        });
+    }
+
+    render() {
+        let employees = this.state.employee_list.map((employee, i) => {
+            return (
+                <tr key={i}>
+                    <td>{ employee.employee_id }</td>
+                    <td>{ employee.name }</td>
+                    <td>{ employee.department}</td>
+                    <td>{ employee.date_of_joining }</td>
+                    <td>{ employee.gender }</td>
+                    <td>{ employee.address }</td>
+                    <td>{ employee.salary }</td>
+                    <td>
+                        <Link to="#" className="link_button_action">Edit</Link>
+                        <Link to="#" className="link_button_action">Delete</Link>
+                    </td>
+                </tr>
+            );
+        });
+
+        return (
+            <div>
+                <div>
+                    <span style={{ textAlign: "center" }}><h1>Employees</h1></span>
+                    <hr />
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Employee Name</th>
+                            <th>Department</th>
+                            <th>Date of Join</th>
+                            <th>Gender</th>
+                            <th>Address</th>
+                            <th>Salary</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {employees}
+                        </tbody>
+                    </table>
+                    <br /><br />
+                    <div style={{ textAlign: "center" }}>
+                        <Link to="#" className="link_button">Add New Record</Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default EmployeeView;
