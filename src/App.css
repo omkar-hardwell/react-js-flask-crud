@@ -37,9 +37,7 @@ tr:nth-child(odd) {background: #FFF}
 }
 
 .form-align {
-    display: table-cell;
     text-align: center;
-    vertical-align: middle;
 }
 
 .form-button {
