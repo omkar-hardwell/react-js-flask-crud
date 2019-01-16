@@ -4,12 +4,13 @@ import ApiCall from "../helpers/Api";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-class EmployeeAdd extends React.Component {
+class EmployeeEdit extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             department_list: [],
+            employee_list: [],
             emp_name: "",
             emp_address: "",
             emp_salary: 0,
@@ -23,7 +24,17 @@ class EmployeeAdd extends React.Component {
         ApiCall("/department", "GET").then(res => {
             this.setState({
                 department_list: res["departments"],
-                emp_department: res["departments"][0].department_id
+            });
+        });
+
+        ApiCall("/employee/" + this.props.match.params.id, "GET").then(res => {
+            this.setState({
+                emp_name: res["employee"].name,
+                emp_address: res["employee"].address,
+                emp_salary: res["employee"].salary,
+                emp_gender: res["employee"].gender,
+                emp_department: res["employee"].department_id,
+                emp_date_of_join: new Date(res["employee"].date_of_joining)
             });
         });
     }
@@ -34,7 +45,7 @@ class EmployeeAdd extends React.Component {
         });
     };
 
-    addEmployee = (e) => {
+    editEmployee = (e) => {
         e.preventDefault();
 
         if (this.state.emp_name.trim() === ""
@@ -45,7 +56,7 @@ class EmployeeAdd extends React.Component {
             return false;
         }
 
-        let postData = {
+        let putData = {
             "name": this.state.emp_name,
             "department_id": this.state.emp_department,
             "date_of_joining": this.state.emp_date_of_join.toISOString().slice(0,10),
@@ -53,7 +64,7 @@ class EmployeeAdd extends React.Component {
             "address": this.state.emp_address,
             "salary": this.state.emp_salary
         };
-        ApiCall("/employee", "POST", postData).then(res => {
+        ApiCall("/employee/" + this.props.match.params.id, "PUT", putData).then(res => {
             this.props.history.push("/employee")
         });
     };
@@ -67,9 +78,9 @@ class EmployeeAdd extends React.Component {
 
         return (
             <div style={{ Align: "center" }}>
-                <span style={{ textAlign: "center" }}><h1>Add Employee Detail</h1></span>
+                <span style={{ textAlign: "center" }}><h1>Edit Employee Detail</h1></span>
                 <hr />
-                <form method="POST" name="add_form" id="add_form" className="form-align" onSubmit={this.addEmployee}>
+                <form method="POST" name="edit_form" id="edit_form" className="form-align" onSubmit={this.editEmployee}>
                     <label>Employee Name:</label>
                     <input type="text" name="emp_name" id="emp_name" value={this.state.emp_name} onChange={e => this.setState({emp_name: e.target.value})} />
                     <br /><br />
@@ -112,4 +123,4 @@ class EmployeeAdd extends React.Component {
     }
 }
 
-export default EmployeeAdd;
+export default EmployeeEdit;
