@@ -29,6 +29,16 @@ class EmployeeView extends React.Component {
         });
     }
 
+    deleteEmployee = (e, emmployee_id, key) => {
+        e.preventDefault();
+
+        ApiCall("/employee/" + emmployee_id, "DELETE").then(res => {
+            alert(res);
+            this.state.employee_list.splice(key, 1);
+            this.setState({employee_list: this.state.employee_list});
+        });
+    };
+
     render() {
         let employees = this.state.employee_list.map((employee, i) => {
             return (
@@ -41,8 +51,8 @@ class EmployeeView extends React.Component {
                     <td>{ employee.address }</td>
                     <td>{ employee.salary }</td>
                     <td>
-                        <Link to="#" className="link_button_action">Edit</Link>
-                        <Link to="#" className="link_button_action">Delete</Link>
+                        <Link to={"employee/edit/" + employee.employee_id} className="link_button_action">Edit</Link>
+                        <Link to="/" className="link_button_action" onClick={(e) => this.deleteEmployee(e, employee.employee_id, i)}>Delete</Link>
                     </td>
                 </tr>
             );
@@ -72,7 +82,7 @@ class EmployeeView extends React.Component {
                     </table>
                     <br /><br />
                     <div style={{ textAlign: "center" }}>
-                        <Link to="#" className="link_button">Add New Record</Link>
+                        <Link to="/employee/add" className="link_button">Add New Record</Link>
                     </div>
                 </div>
             </div>
