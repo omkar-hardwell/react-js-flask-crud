@@ -4,6 +4,8 @@ import EmployeeView from './components/EmployeeView';
 import EmployeeAdd from './components/EmployeeAdd';
 import EmployeeEdit from './components/EmployeeEdit';
 import DepartmentView from './components/DepartmentView';
+import DepartmentAdd from './components/DepartmentAdd';
+import DepartmentEdit from './components/DepartmentEdit';
 import './App.css';
 
 class App extends React.Component {
@@ -16,6 +18,8 @@ class App extends React.Component {
                         <Route path="/employee/add" exact component={EmployeeAdd} />
                         <Route path="/employee/edit/:id" exact component={EmployeeEdit} />
                         <Route path="/department" exact component={DepartmentView} />
+                        <Route path="/department/add" exact component={DepartmentAdd} />
+                        <Route path="/department/edit/:id" exact component={DepartmentEdit} />
                     </Switch>
                 </BrowserRouter>
             </div>
