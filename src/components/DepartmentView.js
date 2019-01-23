@@ -57,6 +57,9 @@ class DepartmentView extends React.Component {
             <div>
                 <div>
                     <span style={{ textAlign: "center" }}><h1>Departments</h1></span>
+                    <span>
+                        <Link to="/"><img src="/icon-home.png" alt="Home" /></Link>
+                    </span>
                     <hr />
                     <table>
                         <thead>

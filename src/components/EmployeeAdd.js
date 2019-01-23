@@ -1,5 +1,6 @@
 import React from "react";
 import DatePicker from "react-datepicker";
+import { Link } from "react-router-dom";
 import ApiCall from "../helpers/Api";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -68,6 +69,11 @@ class EmployeeAdd extends React.Component {
         return (
             <div style={{ Align: "center" }}>
                 <span style={{ textAlign: "center" }}><h1>Add Employee Detail</h1></span>
+                <span>
+                    <Link to="/"><img src="/icon-home.png" alt="Home" /></Link>
+                    <span style={{ margin: "10px" }}>/</span>
+                    <Link to="/employee">Employee</Link>
+                </span>
                 <hr />
                 <form method="POST" name="add_form" id="add_form" className="form-align" onSubmit={this.addEmployee}>
                     <label>Employee Name:</label>

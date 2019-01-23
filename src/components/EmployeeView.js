@@ -62,6 +62,9 @@ class EmployeeView extends React.Component {
             <div>
                 <div>
                     <span style={{ textAlign: "center" }}><h1>Employees</h1></span>
+                    <span>
+                        <Link to="/"><img src="/icon-home.png" alt="Home" /></Link>
+                    </span>
                     <hr />
                     <table>
                         <thead>
