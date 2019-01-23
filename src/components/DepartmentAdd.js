@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ApiCall from "../helpers/Api";
 
 class DepartmentAdd extends React.Component {
@@ -30,6 +31,11 @@ class DepartmentAdd extends React.Component {
         return (
             <div style={{ Align: "center" }}>
                 <span style={{ textAlign: "center" }}><h1>Add Department Detail</h1></span>
+                <span>
+                    <Link to="/"><img src="/icon-home.png" alt="Home" /></Link>
+                    <span style={{ margin: "10px" }}>/</span>
+                    <Link to="/department">Department</Link>
+                </span>
                 <hr />
                 <form method="POST" name="add_form" id="add_form" className="form-align" onSubmit={this.addDepartment}>
                     <label>Department Name:</label>
